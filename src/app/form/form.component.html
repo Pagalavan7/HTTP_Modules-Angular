@@ -44,6 +44,15 @@
       </select>
     </div>
 
-    <button (click)="onSubmit()" type="submit">Create User</button>
+    <button
+      class="mb-2"
+      [disabled]="createUser.invalid"
+      (click)="onSubmit()"
+      type="submit"
+    >
+      Create User
+    </button>
+
+    <button (click)="resetForm()">Reset Form</button>
   </form>
 </div>

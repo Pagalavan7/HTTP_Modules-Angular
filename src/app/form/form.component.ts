@@ -28,7 +28,12 @@ export class FormComponent {
     const user: User = this.createUserForm?.value;
     this.userService.createUser(user).subscribe({
       next: (response) => console.log(response),
+      error: (err) => console.log(err),
     });
+    this.resetForm();
+  }
+
+  resetForm() {
     this.createUserForm?.reset();
   }
 }
