@@ -22,6 +22,7 @@ export class CategoryComponent {
         console.log(response);
         this.categories.push(...response);
       },
+      error: (err) => alert(`${err.error.message}! Please login or signup.`),
     });
     this.showItem = true;
   }

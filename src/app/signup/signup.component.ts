@@ -3,6 +3,7 @@ import { UserService } from '../Services/user.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { User } from '../Models/user.model';
 import { AuthService } from '../Services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -14,7 +15,8 @@ import { AuthService } from '../Services/auth.service';
 export class SignupComponent {
   constructor(
     private userService: UserService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
   @ViewChild('createUser') createUserForm: NgForm | undefined;
   ngAfterViewInit() {
@@ -34,10 +36,11 @@ export class SignupComponent {
       next: (response) => {
         console.log(response);
         this.authService.storeToken(response.token);
+        this.resetForm();
+        this.router.navigate(['home']);
       },
-      error: (err) => console.log(err),
+      error: (err) => alert(err.error.error),
     });
-    this.resetForm();
   }
 
   resetForm() {

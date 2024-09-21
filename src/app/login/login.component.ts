@@ -3,6 +3,7 @@ import { UserService } from '../Services/user.service';
 import { AuthService } from '../Services/auth.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { LoginUser, User } from '../Models/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,8 @@ import { LoginUser, User } from '../Models/user.model';
 export class LoginComponent {
   constructor(
     private userService: UserService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
   @ViewChild('loginUser') loginUserForm: NgForm | undefined;
   ngAfterViewInit() {
@@ -34,7 +36,9 @@ export class LoginComponent {
       next: (response) => {
         console.log(response);
         this.authService.storeToken(response.token);
+        this.router.navigate(['home']);
       },
+      error: (err) => alert(err.error.error),
     });
     this.resetForm();
   }
