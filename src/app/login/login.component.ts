@@ -38,7 +38,10 @@ export class LoginComponent {
         this.authService.storeToken(response.token);
         this.router.navigate(['home']);
       },
-      error: (err) => alert(err.error.error),
+      error: (err) => {
+        console.log(err);
+        alert(err.error.error);
+      },
     });
     this.resetForm();
   }

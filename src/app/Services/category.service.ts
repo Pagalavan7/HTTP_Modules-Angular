@@ -20,7 +20,7 @@ export class CategoryService {
     const authHeader = this.getAuthHeader();
 
     return this.http.get<Category[]>(
-      'http://localhost:3000/api/category/get-all-category',
+      'http://localhost:3000/api/category/get-all-categor',
       {
         headers: authHeader,
       }

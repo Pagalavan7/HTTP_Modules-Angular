@@ -25,7 +25,14 @@ export class CategoryComponent {
         console.log(response);
         this.categories.push(...response);
       },
-      error: (err) => alert(`${err.error.message}! Please login or signup.`),
+      error: (err) => {
+        this.isloading = false;
+        console.log(err);
+        alert(`${err.error.message}! Please login or signup.`);
+      },
+      complete: () => {
+        console.log('request complete');
+      },
     });
     this.showItem = true;
     return this.categories;
