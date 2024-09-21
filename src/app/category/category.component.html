@@ -1,16 +1,6 @@
 <div class="category">
   <h1>Categories List</h1>
   <hr />
-  <button (click)="getCategory()" class="btn">Get All Categories</button>
-  <!-- 
-  <div *ngIf="showItem" class="category-list">
-    <div class="category-item">
-      <div>{{ category.name }}</div>
-      <div>{{ category.description }}</div>
-      <div>Delete Category</div>
-      <hr />
-    </div>
-  </div> -->
 
   <table *ngIf="showItem" class="table table-dark mt-3">
     <thead>
@@ -32,4 +22,8 @@
       </tr>
     </tbody>
   </table>
+
+  <button *ngIf="!showItem" (click)="getCategory()" class="btn">
+    Get All Categories
+  </button>
 </div>
