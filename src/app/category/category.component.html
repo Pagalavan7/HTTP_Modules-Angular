@@ -1,1 +1,13 @@
-<p>category works!</p>
+<div class="category">
+  <h1>Categories List</h1>
+  <hr />
+  <button (click)="getCategory()" class="btn">Get All Categories</button>
+
+  <div *ngIf="showItem" class="category-list">
+    <div *ngFor="let category of categories" class="category-item">
+      <p>{{ category.name }}</p>
+      <p>{{ category.description }}</p>
+      <hr />
+    </div>
+  </div>
+</div>

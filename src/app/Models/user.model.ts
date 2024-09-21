@@ -1,9 +1,12 @@
-export interface User {
+export interface LoginUser {
+  email: string;
+  password: string;
+}
+
+export interface User extends LoginUser {
   id?: number;
   name: string;
-  email: string;
   phone: string;
-  password: string;
   role: 'admin' | 'user' | 'guest';
   status: 'active' | 'inactive';
 }

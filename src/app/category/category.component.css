@@ -1,0 +1,12 @@
+.category {
+  background-color: rgb(189, 245, 245);
+  text-align: center;
+  padding: 1em;
+}
+
+.category-item {
+  margin: 2em;
+}
+button {
+  background-color: rgb(0, 255, 255);
+}

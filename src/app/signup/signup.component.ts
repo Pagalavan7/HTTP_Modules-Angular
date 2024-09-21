@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { UserService } from '../Services/user.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { User } from '../Models/user.model';
+import { AuthService } from '../Services/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -11,7 +12,10 @@ import { User } from '../Models/user.model';
   styleUrl: './signup.component.css',
 })
 export class SignupComponent {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private authService: AuthService
+  ) {}
   @ViewChild('createUser') createUserForm: NgForm | undefined;
   ngAfterViewInit() {
     console.log('in ng after view init method');
@@ -27,7 +31,10 @@ export class SignupComponent {
     console.log(this.createUserForm?.value);
     const user: User = this.createUserForm?.value;
     this.userService.createUser(user).subscribe({
-      next: (response) => console.log(response),
+      next: (response) => {
+        console.log(response);
+        this.authService.storeToken(response.token);
+      },
       error: (err) => console.log(err),
     });
     this.resetForm();

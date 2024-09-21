@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from '../Models/user.model';
+import { LoginUser, User } from '../Models/user.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -19,6 +19,13 @@ export class UserService {
       user,
       { headers: this.headers }
       // { headers: { 'my-header': 'Hello-World' } }
+    );
+  }
+
+  loginUser(user: LoginUser): Observable<any> {
+    return this.httpClient.post<{ message: string; token: string }>(
+      'http://localhost:3000/api/auth/login',
+      user
     );
   }
 }
