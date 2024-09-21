@@ -15,6 +15,7 @@ export class CategoryComponent {
 
   showItem: boolean = false;
   isloading: boolean = false;
+  errorMsg: string | undefined = undefined;
   categories: Category[] = [];
 
   getAllCategories() {
@@ -27,7 +28,10 @@ export class CategoryComponent {
       },
       error: (err) => {
         this.isloading = false;
-        console.log(err);
+        // console.log(err);
+        // this.errorMsg = err.error.error;
+        // console.log('error message ', this.errorMsg);
+        // console.log(err);
         alert(`${err.error.message}! Please login or signup.`);
       },
       complete: () => {

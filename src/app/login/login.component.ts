@@ -4,6 +4,7 @@ import { AuthService } from '../Services/auth.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { LoginUser, User } from '../Models/user.model';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,11 @@ export class LoginComponent {
     private authService: AuthService,
     private router: Router
   ) {}
+
   @ViewChild('loginUser') loginUserForm: NgForm | undefined;
+
+  errorMsg: string | null = null;
+
   ngAfterViewInit() {
     console.log('in ng after view init method');
 
@@ -28,6 +33,15 @@ export class LoginComponent {
     console.log('in ng on changes method');
     console.log(this.loginUserForm);
   }
+
+  displayErrorMsg(err: HttpErrorResponse) {
+    this.errorMsg = err.error.error;
+    console.log('Inside error msg display: ', this.errorMsg);
+    setTimeout(() => {
+      this.errorMsg = null;
+    }, 3000);
+  }
+
   onSubmit() {
     console.log('Form submitted.. values of form is..');
     console.log(this.loginUserForm?.value);
@@ -36,14 +50,14 @@ export class LoginComponent {
       next: (response) => {
         console.log(response);
         this.authService.storeToken(response.token);
+        this.resetForm();
         this.router.navigate(['home']);
       },
       error: (err) => {
         console.log(err);
-        alert(err.error.error);
+        this.displayErrorMsg(err);
       },
     });
-    this.resetForm();
   }
 
   resetForm() {
