@@ -2,12 +2,34 @@
   <h1>Categories List</h1>
   <hr />
   <button (click)="getCategory()" class="btn">Get All Categories</button>
-
+  <!-- 
   <div *ngIf="showItem" class="category-list">
-    <div *ngFor="let category of categories" class="category-item">
-      <p>{{ category.name }}</p>
-      <p>{{ category.description }}</p>
+    <div class="category-item">
+      <div>{{ category.name }}</div>
+      <div>{{ category.description }}</div>
+      <div>Delete Category</div>
       <hr />
     </div>
-  </div>
+  </div> -->
+
+  <table *ngIf="showItem" class="table table-dark mt-3">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Category</th>
+        <th scope="col">Description</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let category of categories" class="table-primary">
+        <th scope="row">{{ category.categoryId }}</th>
+        <td>{{ category.name }}</td>
+        <td>{{ category.description }}</td>
+        <td>
+          <i class="fa-solid fa-trash"></i>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
