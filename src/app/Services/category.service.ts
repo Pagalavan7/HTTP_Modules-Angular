@@ -27,12 +27,23 @@ export class CategoryService {
     );
   }
 
+  deleteCategory(id: number) {
+    console.log('Delete  id in service: ', id);
+    const authHeader = this.getAuthHeader();
+    return this.http.delete<{ message: string }>(
+      `http://localhost:3000/api/category/delete-category/${id}`,
+      {
+        headers: authHeader,
+      }
+    );
+  }
+
   deleteAllCategories() {
     console.log('Delete all categories service called');
     const authHeader = this.getAuthHeader();
 
     return this.http.delete<{ message: string }>(
-      'http://localhost:3000/api/category/delete-category',
+      'http://localhost:3000/api/category/delete-all-category',
       {
         headers: authHeader,
       }

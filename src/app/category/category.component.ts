@@ -14,11 +14,14 @@ export class CategoryComponent {
   constructor(private categoryService: CategoryService) {}
 
   showItem: boolean = false;
+  isloading: boolean = false;
   categories: Category[] = [];
 
   getAllCategories() {
+    this.isloading = true;
     this.categoryService.getAllCategory().subscribe({
       next: (response) => {
+        this.isloading = false;
         console.log(response);
         this.categories.push(...response);
       },
@@ -30,13 +33,28 @@ export class CategoryComponent {
 
   deleteAllCategories() {
     console.log('All categories deleted');
-    this.categories = [];
+
     this.categoryService.deleteAllCategories().subscribe({
       next: (response) => {
+        this.categories = [];
         alert(response.message);
       },
       error: (err) => {
         console.log('error', err);
+      },
+    });
+  }
+
+  deleteCategory(id: number) {
+    console.log('id that is deleting', id);
+    this.categoryService.deleteCategory(id).subscribe({
+      next: (response) => {
+        console.log('response display: ', response);
+        this.categories = this.categories.filter((x) => x.categoryId != id);
+        console.log(this.categories);
+      },
+      error: (err) => {
+        console.log('error display:', err);
       },
     });
   }

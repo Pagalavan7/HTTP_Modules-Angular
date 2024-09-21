@@ -1,15 +1,19 @@
 import { inject } from '@angular/core';
 import { AuthService } from './Services/auth.service';
 import { jwtDecode } from 'jwt-decode';
+import { Router } from '@angular/router';
 
 export const isAdmin = (): boolean => {
   try {
     const authService = inject(AuthService);
+    const router = inject(Router);
 
     const token: string = authService.getToken()!;
 
     if (!token) {
       alert('Token not found.. try logging in');
+      router.navigate(['/login']);
+      console.log('im printed');
       return false;
     }
 
@@ -21,6 +25,7 @@ export const isAdmin = (): boolean => {
 
     if (decoded.exp && decoded.exp < currentTime) {
       alert('Token expired. Login again!');
+      router.navigate(['/login']);
       return false; // Token is expired
     }
 
