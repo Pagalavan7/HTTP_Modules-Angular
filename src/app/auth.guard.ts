@@ -1,14 +1,14 @@
 import { inject } from '@angular/core';
-import { AuthService } from './Services/auth.service';
+import { TokenService } from './Services/token.service';
 import { jwtDecode } from 'jwt-decode';
 import { Router } from '@angular/router';
 
 export const isAdmin = (): boolean => {
   try {
-    const authService = inject(AuthService);
+    const tokenService = inject(TokenService);
     const router = inject(Router);
 
-    const token: string = authService.getToken()!;
+    const token: string = tokenService.getToken()!;
 
     if (!token) {
       alert('Token not found.. try logging in');

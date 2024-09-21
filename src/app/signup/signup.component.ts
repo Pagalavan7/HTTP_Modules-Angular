@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { UserService } from '../Services/user.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { User } from '../Models/user.model';
-import { AuthService } from '../Services/auth.service';
+import { TokenService } from '../Services/token.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 export class SignupComponent {
   constructor(
     private userService: UserService,
-    private authService: AuthService,
+    private tokenService: TokenService,
     private router: Router
   ) {}
   @ViewChild('createUser') createUserForm: NgForm | undefined;
@@ -35,7 +35,7 @@ export class SignupComponent {
     this.userService.createUser(user).subscribe({
       next: (response) => {
         console.log(response);
-        this.authService.storeToken(response.token);
+        this.tokenService.storeToken(response.token);
         this.resetForm();
         this.router.navigate(['home']);
       },

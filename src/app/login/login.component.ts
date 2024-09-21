@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { UserService } from '../Services/user.service';
-import { AuthService } from '../Services/auth.service';
+import { TokenService } from '../Services/token.service';
 import { FormsModule, NgForm } from '@angular/forms';
-import { LoginUser, User } from '../Models/user.model';
+import { LoginUser } from '../Models/user.model';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -16,7 +16,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class LoginComponent {
   constructor(
     private userService: UserService,
-    private authService: AuthService,
+    private tokenService: TokenService,
     private router: Router
   ) {}
 
@@ -49,7 +49,7 @@ export class LoginComponent {
     this.userService.loginUser(user).subscribe({
       next: (response) => {
         console.log(response);
-        this.authService.storeToken(response.token);
+        this.tokenService.storeToken(response.token);
         this.resetForm();
         this.router.navigate(['home']);
       },
