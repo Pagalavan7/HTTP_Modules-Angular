@@ -9,17 +9,32 @@ import { Category } from '../Models/category.model';
 export class CategoryService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
+  getAuthHeader() {
+    const token = this.authService.getToken();
+    const auth_header = new HttpHeaders({ authorization: `Bearer ${token}` });
+    return auth_header;
+  }
+
   getAllCategory() {
     console.log('get all category called');
-    const token = this.authService.getToken();
-
-    const headers = new HttpHeaders({ authorization: `Bearer ${token}` });
-    console.log(headers);
+    const authHeader = this.getAuthHeader();
 
     return this.http.get<Category[]>(
       'http://localhost:3000/api/category/get-all-category',
       {
-        headers,
+        headers: authHeader,
+      }
+    );
+  }
+
+  deleteAllCategories() {
+    console.log('Delete all categories service called');
+    const authHeader = this.getAuthHeader();
+
+    return this.http.delete<{ message: string }>(
+      'http://localhost:3000/api/category/delete-category',
+      {
+        headers: authHeader,
       }
     );
   }

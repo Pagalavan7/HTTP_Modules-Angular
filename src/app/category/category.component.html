@@ -2,7 +2,7 @@
   <h1>Categories List</h1>
   <hr />
 
-  <table *ngIf="showItem" class="table table-dark mt-3">
+  <table *ngIf="showItem && categories.length" class="table table-dark mt-3">
     <thead>
       <tr>
         <th scope="col">Id</th>
@@ -23,7 +23,25 @@
     </tbody>
   </table>
 
-  <button *ngIf="!showItem" (click)="getCategory()" class="btn">
+  <button
+    *ngIf="!showItem; else not_found"
+    (click)="getAllCategories()"
+    class="btn"
+  >
     Get All Categories
+  </button>
+
+  <ng-template #not_found>
+    <div *ngIf="!categories.length" class="not-found">
+      No Categories found!!
+    </div>
+  </ng-template>
+
+  <button
+    *ngIf="showItem && categories.length"
+    (click)="deleteAllCategories()"
+    class="btn"
+  >
+    Delete All Categories
   </button>
 </div>

@@ -6,6 +6,7 @@ import { CategoryComponent } from './category/category.component';
 import { isAdmin } from './auth.guard';
 
 export const routes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },

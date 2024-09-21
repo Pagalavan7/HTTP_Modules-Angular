@@ -16,7 +16,7 @@ export class CategoryComponent {
   showItem: boolean = false;
   categories: Category[] = [];
 
-  getCategory() {
+  getAllCategories() {
     this.categoryService.getAllCategory().subscribe({
       next: (response) => {
         console.log(response);
@@ -25,5 +25,19 @@ export class CategoryComponent {
       error: (err) => alert(`${err.error.message}! Please login or signup.`),
     });
     this.showItem = true;
+    return this.categories;
+  }
+
+  deleteAllCategories() {
+    console.log('All categories deleted');
+    this.categories = [];
+    this.categoryService.deleteAllCategories().subscribe({
+      next: (response) => {
+        alert(response.message);
+      },
+      error: (err) => {
+        console.log('error', err);
+      },
+    });
   }
 }
